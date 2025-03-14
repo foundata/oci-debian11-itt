@@ -43,7 +43,7 @@ To build the image locally, do the following:
 2. Clone or pull the latest changes from this Git repository.
 3. Change into the directory and execute the [build command](https://docs.podman.io/en/latest/markdown/podman-build.1.html):
    ```bash
-   podman build -t oci-debian11-itt .
+   podman build -t debian11-itt .
    ```
 
 
@@ -52,17 +52,17 @@ To build the image locally, do the following:
 
 1. [Install Podman](https://podman.io/docs/installation).
 2. Use the image you built earlier or pull the image from a registry:
-   - [Quay](https://quay.io/repository/foundata/oci-debian11-itt):
+   - [Quay](https://quay.io/repository/foundata/debian11-itt):
      ```bash
-     podman pull quay.io/foundata/oci-debian11-itt:latest
+     podman pull quay.io/foundata/debian11-itt:latest
      ```
-   - [Docker Hub](https://hub.docker.com/r/foundata/oci-debian11-itt):
+   - [Docker Hub](https://hub.docker.com/r/foundata/debian11-itt):
      ```bash
-     podman pull docker.io/foundata/oci-debian11-itt:latest
+     podman pull docker.io/foundata/debian11-itt:latest
      ```
 3. Run a container from the image:
    ```bash
-   podman run --detach --systemd=always oci-debian11-itt:latest "/lib/systemd/systemd"
+   podman run --detach --systemd=always debian11-itt:latest "/lib/systemd/systemd"
    ```
    Note: **On SELinux-enabled systems**, systemd attempts to write to the cgroup filesystem, which is typically denied by default security policies. To allow this operation, you must **enable the `container_manage_cgroup` boolean** on the host system: `sudo setsebool -P container_manage_cgroup 1`
 4. You can now work with the container, e.g. open a Bash terminal:
