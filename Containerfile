@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends systemd \
     && rm -f "/lib/systemd/system/sockets.target.wants/"*"udev"* \
     && rm -f "/lib/systemd/system/sockets.target.wants/"*"initctl"* \
     && rm -f "/lib/systemd/system/"*"ask-password"* \
+    # Debian specific
     # Prevent start of agetty on tty[1-6].
     && rm -f "/lib/systemd/system/multi-user.target.wants/getty.target" \
     # Clean up unnecessary installed files that aren't needed in this image
