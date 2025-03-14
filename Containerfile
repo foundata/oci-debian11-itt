@@ -22,9 +22,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 #   systemctl list-units --state=waiting
 #   systemctl list-units --state=failed
 #   https://www.freedesktop.org/software/systemd/man/latest/bootup.html
-RUN apt-get update && apt-get install -y --no-install-recommends systemd \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    systemd \
+    systemd-sysv \
     # General
-    && rm -rf "/lib/systemd/system/basic.target.wants/"* \
     && rm -f "/lib/systemd/system/sockets.target.wants/"*"udev"* \
     && rm -f "/lib/systemd/system/sockets.target.wants/"*"initctl"* \
     && rm -f "/lib/systemd/system/"*"ask-password"* \
