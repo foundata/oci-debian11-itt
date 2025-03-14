@@ -16,8 +16,12 @@ ENV PYTHONUNBUFFERED=1
 # package installation
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Install systemd and remove inconvenient targets and services
-# https://www.freedesktop.org/software/systemd/man/latest/bootup.html
+# Install systemd, remove inconvenient targets and services. Helpful resources
+# to determine problematic units to be removed during development:
+#   systemctl list-dependencies
+#   systemctl list-units --state=waiting
+#   systemctl list-units --state=failed
+#   https://www.freedesktop.org/software/systemd/man/latest/bootup.html
 RUN apt-get update && apt-get install -y --no-install-recommends systemd \
     # General
     && rm -rf "/lib/systemd/system/basic.target.wants/"* \
