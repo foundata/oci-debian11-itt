@@ -62,7 +62,7 @@ To build the image locally, do the following:
      ```
 3. Run a container from the image:
    ```bash
-   podman run --detach --systemd=always oci-debian11-itt:latest "/usr/sbin/init"
+   podman run --detach --systemd=always oci-debian11-itt:latest "/lib/systemd/systemd"
    ```
    Note: **On SELinux-enabled systems**, systemd attempts to write to the cgroup filesystem, which is typically denied by default security policies. To allow this operation, you must **enable the `container_manage_cgroup` boolean** on the host system: `sudo setsebool -P container_manage_cgroup 1`
 4. You can now work with the container, e.g. open a Bash terminal:
