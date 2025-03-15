@@ -37,7 +37,7 @@ The image aims to replicate a "VM-like" operating system environment while maint
 
 ## How to build<a id="build"></a>
 
-To build the image locally, do the following:
+The sources are available at the [`foundata/oci-debian1-itt` repository](https://github.com/foundata/oci-debian11-itt). To build the image locally, do the following:
 
 1. [Install Podman](https://podman.io/docs/installation).
 2. Clone or pull the latest changes from this Git repository.
