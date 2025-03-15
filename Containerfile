@@ -45,7 +45,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # - Easier debugging within the container (good feature-to-size ratio):
 #   iputils-ping, iputils-tracepath, less, vim-tiny
 #
-# - Accessing a VM via Ansible:
+# - Accessing a container via Ansible:
 #   python3, python3-apt, sudo
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
@@ -62,7 +62,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         sudo \
     && rm -rf "/var/lib/apt/lists/"* \
     && apt-get clean \
-    # Clean up unnecessary installed files that aren't needed in this image
+    # Clean up unnecessary installed files that aren't needed in this image.
+    # --no-install-recommends does not prevent installation of docs for all
+    # packages, and --path-exclude is only available for dpkg, not for apt-get.
     && rm -rf "/usr/share/doc" \
     && rm -rf "/usr/share/man"
 
