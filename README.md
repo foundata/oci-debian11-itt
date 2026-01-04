@@ -33,6 +33,8 @@ The image aims to replicate a "VM-like" operating system environment while maint
 
 - `latest`: Latest release of this image.
 
+Images are typically rebuilt approximately every four weeks to include updates and security patches.
+
 
 
 ## How to build<a id="build"></a>
