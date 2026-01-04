@@ -4,15 +4,15 @@
 
 Main features of the [OCI](https://opencontainers.org/) image:
 
-* Fully functional [`systemd`](https://systemd.io/) (not a shim)
-* Unprivileged execution support
+- Fully functional [`systemd`](https://systemd.io/) (not a shim)
+- Unprivileged execution support
 
 The image aims to replicate a "VM-like" operating system environment while maintaining container portability, making it ideal for:
 
-* DevOps validation (like testing Ansible collections, roles, and playbooks)
-* CI pipeline testing for quick smoke tests (e.g. before running full VM integration test)
-* Development environments requiring systemd
-* Testing system services and daemons
+- DevOps validation (like testing Ansible collections, roles, and playbooks)
+- CI pipeline testing for quick smoke tests (e.g. before running full VM integration test)
+- Development environments requiring systemd
+- Testing system services and daemons
 
 
 
@@ -21,7 +21,7 @@ The image aims to replicate a "VM-like" operating system environment while maint
 - [Tags](#tags)
 - [How to build](#build)
 - [How to use](#usage)
-- [Notes](#notes)
+- [Non-goals / Limitations](#limitations)
 - [Licensing, copyright](#licensing-copyright)
   - [Container configuration, repository](#licensing-copyright-project)
   - [Container image](#licensing-copyright-image)
@@ -56,15 +56,11 @@ To build the image locally, do the following:
      ```bash
      podman pull quay.io/foundata/debian11-itt:latest
      ```
-   - [Docker Hub](https://hub.docker.com/r/foundata/debian11-itt):
-     ```bash
-     podman pull docker.io/foundata/debian11-itt:latest
-     ```
 3. Run a container from the image:
    ```bash
-   podman run --detach --systemd=always debian11-itt:latest "/lib/systemd/systemd"
+   podman run --detach debian11-itt:latest
    ```
-   Note: **On SELinux-enabled systems**, systemd attempts to write to the cgroup filesystem, which is typically denied by default security policies. To allow this operation, you must **enable the `container_manage_cgroup` boolean** on the host system: `sudo setsebool -P container_manage_cgroup 1`
+   Note: **On SELinux-enabled systems**, systemd attempts to write to the cgroup filesystem, which might be denied by default security policies. To allow this operation, you must **enable the `container_manage_cgroup` boolean** on the host system: `sudo setsebool -P container_manage_cgroup 1`
 4. You can now work with the container, e.g. open a Bash terminal:
    ```bash
    podman ps
@@ -78,13 +74,17 @@ To build the image locally, do the following:
 
 
 
-## Notes<a id="notes"></a>
+## Non-goals / Limitations<a id="limitations"></a>
 
-This image is built and tested with [Podman](https://podman.io/) only.
+This image is intentionally scoped for integration testing and development scenarios. It prioritizes compatibility and functionality over security and performance and is for **usage in isolated environments only**.
 
-We currently do *not* support [Docker](https://www.docker.com/) (but it might work with `sudo` and `--privileged --volume=/sys/fs/cgroup/systemd:/sys/fs/cgroup/systemd:rw --cgroupns=host --env container=docker` instead of `--systemd=always`).
+Specifically, it does **not** provide:
 
-> **Important**: This image is not hardened or optimized for production use. It prioritizes compatibility and functionality over security and performance and is for usage in isolated environments only.
+- Guaranteed compatibility with container runtimes other than [Podman](https://podman.io/). We do *not* support [Docker](https://www.docker.com/) (but it might work).
+- A production-hardened or security-optimized environment (e.g. CIS hardening, minimal attack surface).
+- Support for long-running, multi-tenant, or internet-facing workloads.
+- Optimizations for image size, fast startup time, or minimal resource usage.
+- High availability, clustering, or orchestration features (e.g. Kubernetes tuning).
 
 
 
@@ -93,7 +93,7 @@ We currently do *not* support [Docker](https://www.docker.com/) (but it might wo
 ### Container configuration, repository<a id="licensing-copyright-project"></a>
 
 <!--REUSE-IgnoreStart-->
-Copyright (c) 2025 foundata GmbH (https://foundata.com)
+Copyright (c) 2025, 2026 [foundata GmbH](https://foundata.com) (https://foundata.com)
 
 This project is licensed under the GNU General Public License v3.0 or later (SPDX-License-Identifier: `GPL-3.0-or-later`), see [`LICENSES/GPL-3.0-or-later.txt`](LICENSES/GPL-3.0-or-later.txt) for the full text.
 
@@ -110,10 +110,10 @@ The pre-built image itself bundles various software components along with direct
 
 For further licensing information about the software contained in this image, please refer to the following resources:
 
-* https://www.debian.org/legal/licenses/
+- https://www.debian.org/legal/licenses/
 
 
 
 ## Author information<a id="author-information"></a>
 
-This project was created and is maintained by foundata GmbH (https://foundata.com).
+This project was created and is maintained by [foundata GmbH](https://foundata.com) (https://foundata.com).
